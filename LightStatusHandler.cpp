@@ -6,6 +6,8 @@ LightStatusHandler::LightStatusHandler(int minOn, int maxOff) {
 
     _lastChangeMillis = 0;
     _lightStatus = false;
+    
+    _timer = new Timer();
 }
 
 bool LightStatusHandler::hasChanged(int reading) {
@@ -15,6 +17,31 @@ bool LightStatusHandler::hasChanged(int reading) {
     else newStatus = _lightStatus;
 
     bool hasChanged = newStatus != _lightStatus;
+    if (hasChanged) _timer->reset();
     _lightStatus = newStatus;
     return hasChanged;
+}
+
+String LightStatusHandler::statusToString() {
+    String str = "Lights are ";
+    String state;
+    String pastState;
+
+    if (_lightStatus) {
+        state = "ON";
+        pastState = "dark";
+    }
+    else {
+        state = "OFF";
+        pastState = "light";
+    }
+
+    str += state;
+    str += ". It was ";
+    str += pastState;
+    str += " for ";
+    str += _timer->getLastTime();
+    str += ".";
+
+    return str;
 }

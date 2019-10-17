@@ -19,7 +19,7 @@ const int minOn = 950;
 const int maxOff = 700;
 
 unsigned long lastMillis = 0;
-unsigned int loopInterval = 30*1000;
+unsigned int loopInterval = 5*1000;
 
 LightStatusHandler lightStatusHandler(minOn, maxOff);
 
@@ -40,16 +40,12 @@ void loop() {
     int lights = analogRead(LDR_PIN);
 
     if (lightStatusHandler.hasChanged(lights)) {
-      if (lightStatusHandler._lightStatus) {
-        sendStatus("Lights are ON");
-      } else {
-        sendStatus("Lights are OFF");
-      }
+      sendStatus(lightStatusHandler.statusToString());
     }
   }
 }
 
-void sendStatus(const char* status) {
+void sendStatus(String status) {
   HTTPClient http;
   http.begin(url, httpsFingerprint);
   http.addHeader("Content-Type", "application/json");
