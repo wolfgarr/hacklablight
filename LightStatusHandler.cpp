@@ -23,7 +23,6 @@ bool LightStatusHandler::hasChanged(int reading) {
 }
 
 String LightStatusHandler::statusToString() {
-    String str = "Lights are ";
     String state;
     String pastState;
 
@@ -36,6 +35,7 @@ String LightStatusHandler::statusToString() {
         pastState = "light";
     }
 
+    String str = "Lights are ";
     str += state;
     str += ". It was ";
     str += pastState;

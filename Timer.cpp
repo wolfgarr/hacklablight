@@ -20,22 +20,40 @@ String Timer::getLastTime() {
     
     if (totalDays) {
         str += totalDays ;
-        str += " days, ";
+
+        if (totalDays == 1) str += " day, ";
+        else str += " days, ";
+
         str += totalHours % 24 ;
-        str +=" hours";
+
+        if (totalHours % 24 == 1) str += " hour";
+        else str += " hours";
+
     } else if (totalHours) {
-        str += totalHours ;
-        str += " hours, ";
+        str += totalHours;
+
+        if (totalHours == 1) str += " hour, ";
+        else str += " hours, ";
+
         str += totalMinutes % 60 ;
-        str +=" minutes";
+
+        if (totalMinutes % 60 == 1) str += " minute";
+        else str += " minutes";
+
     } else if (totalMinutes) {
-        str += totalMinutes ;
-        str += " minutes, ";
+        str += totalMinutes;
+
+        if (totalMinutes == 1) str += " minute, ";
+        else str += " minutes, ";
+
         str += totalSeconds % 60 ;
-        str +=" seconds";
+
+        if (totalSeconds % 60 == 1) str += " second";
+        else str += " seconds";
     } else {
         str += totalSeconds;
-        str += " seconds";
+        if (totalSeconds == 1) str += " second";
+        else str += " seconds";
     }
 
     return str;
